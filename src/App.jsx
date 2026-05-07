@@ -9,13 +9,10 @@ import MusicPlayer from './components/MusicPlayer';
 import Hero from './sections/Hero';
 import GuestGreeting from './sections/GuestGreeting';
 import BrideGroom from './sections/BrideGroom';
-import WeddingEventScreens from './sections/WeddingEventScreens';
-import Countdown from './sections/Countdown';
 import EventDetails from './sections/EventDetails';
 import QuoteBible from './sections/QuoteBible';
 import GiftRegistry from './sections/GiftRegistry';
 import Gallery from './sections/Gallery';
-import Wishes from './sections/Wishes';
 import Footer from './sections/Footer';
 
 export default function App() {
@@ -58,13 +55,10 @@ export default function App() {
           <Hero />
           <GuestGreeting />
           <BrideGroom />
-          <WeddingEventScreens />
-          <Countdown />
           <EventDetails />
           <QuoteBible />
-          <GiftRegistry />
           <Gallery />
-          <Wishes />
+          <GiftRegistry />
         </main>
 
         <Footer />

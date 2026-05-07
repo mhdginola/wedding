@@ -2,7 +2,7 @@ export const COUPLE_DISPLAY = 'GINOLA & ADE RISMA';
 
 export const couple = Object.freeze({
   bride: Object.freeze({
-    fullName: 'Ade Risma Lestari',
+    fullName: 'Ade Risma',
     nickName: 'Ade Risma',
     parentsLine: 'Putri dari Bapak Suhandi & Ibu Marsiah',
     address: 'Griya Karawaci Blok A5 No.17',
@@ -38,15 +38,5 @@ export const MAP_URL =
 
 export const WEDDING_COUNTDOWN_ISO = '2026-06-06T10:00:00+07:00';
 
-export const TURUT_MENGUNDANG = Object.freeze([
-  'Keluarga Bapak Suhandi & Ibu Marsiah',
-  'Keluarga Bapak Syahril & Ibu Rohati',
-]);
-
-export const INVITATION_META = Object.freeze({
-  catalog: 'BUP 329',
-  quantity: 450,
-});
-
-/** Satu kalimat untuk segel berputar di Hero; mengikuti `COUPLE_DISPLAY`. */
-export const SEAL_CIRCULAR_PHRASE = `THE WEDDING OF ${COUPLE_DISPLAY}`;
+/** Teks segel (spasi + titik di akhir mengurangi kata nyambung di titik temu lingkaran). */
+export const SEAL_CIRCULAR_PHRASE = `THE WEDDING OF ${COUPLE_DISPLAY}-     `;

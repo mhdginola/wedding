@@ -3,13 +3,13 @@ const BASE = '/images/pre-wedding';
 
 const PREWEDDING_ORDER = [
   'NBT09832-3881c371-b72f-436d-8283-5f361a0416de.png',
-  'NBT00191-096a3b8c-6f5e-4c50-9b81-ab861bb23192.png',
-  'NBT09508-fe8994d1-687b-4283-aa90-56ce6d2251f1.png',
-  'NBT09847-541a4cee-3840-462b-a1f9-0b280450df23.png',
+  'NBT09954-5a607a62-be2c-4826-aef2-aa8f357e32a6.jpg',
+  'bride-the-bride-9e4f3d00.png',
+  'groom-outdoor-e13d15d3.png',
   'NBT09803-64fd6a6f-5d82-47b7-900a-c375dc60d98f.png',
   'NBT00176__1_-351cb696-8240-4abd-a517-ce52035985b2.png',
   'NBT09841-13dfd1f1-36df-4557-952b-7ae1a49eb628.png',
-  'NBT00065-f3d58d7f-73c1-4c96-bd10-84ca2fc3b9cb.png',
+  'NBT09847-5902a0e5-6608-475e-b844-6ed418d734ea.jpg',
   'NBT09851-9e2519c2-ccd8-4910-9cb1-c23c993e5366.png',
   'NBT09859-f090e8f5-3aca-4720-bb99-8a566714b885.png',
   'NBT09783-3e5efe27-a4b2-4bf0-bd96-43a073f9e99e.png',
@@ -32,7 +32,7 @@ const PREWEDDING_ORDER = [
   'NBT09429-0ac2779d-e10c-4ae7-a7cb-1877640fe8d0.png',
   'NBT09898-a4ef6acf-7b1d-405f-b23e-78f96b04d459.png',
   'NBT09908-4dbb1cd2-9a5d-42a3-ab67-cf05863b7eb6.png',
-  'NBT09954-50ceae9a-39d8-4dea-b25f-606af06d973e.png',
+  'NBT00191-096a3b8c-6f5e-4c50-9b81-ab861bb23192.png',
   'NBT09637-0d216f65-b02c-4121-814d-6cd6bd49a1ca.png',
   'NBT09892-3eb5655d-ff73-4925-9d4c-a8006fe6f09c.png',
   'NBT09687-5508ceaf-45a3-44d9-b99d-4699bda0bef0.png',
@@ -55,11 +55,12 @@ export const weddingPhotos = Object.freeze({
   groom: asset(PREWEDDING_ORDER[3]),
   event1: asset(PREWEDDING_ORDER[4]),
   event2: asset(PREWEDDING_ORDER[5]),
-  countdown: asset(PREWEDDING_ORDER[6]),
-  quote: asset(PREWEDDING_ORDER[7]),
+  countdown: asset('NBT09847-5902a0e5-6608-475e-b844-6ed418d734ea.jpg'),
+  /** Background blok “Salam hangat” (foto NBT09841). */
+  guestGreeting: asset('NBT09841-13dfd1f1-36df-4557-952b-7ae1a49eb628.png'),
+  quote: asset('NBT00176__1_-351cb696-8240-4abd-a517-ce52035985b2.png'),
   giftHero: asset(PREWEDDING_ORDER[8]),
-  thankYou: asset(PREWEDDING_ORDER[9]),
-  wishesThumb: asset(PREWEDDING_ORDER[10]),
+  thankYou: asset('NBT09892-3eb5655d-ff73-4925-9d4c-a8006fe6f09c.png'),
   gallery(n) {
     const idx = (((Number(n) || 1) - 1) % GALLERY_ONLY.length + GALLERY_ONLY.length) % GALLERY_ONLY.length;
     return asset(GALLERY_ONLY[idx]);

@@ -35,7 +35,7 @@ export default function BrideGroom() {
               {p.label}
             </p>
             <div className="absolute inset-x-0 bottom-0 px-6 pb-10 text-center text-white">
-              <h2 className="heading-serif text-3xl md:text-4xl">{p.name}</h2>
+              <h2 className="heading-serif text-3xl !text-white drop-shadow-md md:text-4xl">{p.name}</h2>
               {p.subtitle ? (
                 <p className="mt-2 font-sans text-sm font-light text-white/85">{p.subtitle}</p>
               ) : null}

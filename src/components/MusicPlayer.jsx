@@ -1,30 +1,82 @@
 import { useState, useRef, useEffect } from 'react';
 
+const OPEN_INVITATION_EVENT = 'wedding:open-invitation';
+
 export default function MusicPlayer({ canPlay }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  const needsUserGestureRef = useRef(false);
+
+  const tryPlay = async () => {
+    if (!audioRef.current) return false;
+    try {
+      await audioRef.current.play();
+      setIsPlaying(true);
+      needsUserGestureRef.current = false;
+      return true;
+    } catch {
+      return false;
+    }
+  };
 
   useEffect(() => {
-    if (canPlay && audioRef.current && !isPlaying) {
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
-    }
-  }, [canPlay]);
+    if (!canPlay || isPlaying) return;
+    tryPlay().then((ok) => {
+      if (!ok) needsUserGestureRef.current = true;
+    });
+  }, [canPlay, isPlaying]);
+
+  useEffect(() => {
+    const playFromOpenGesture = () => {
+      tryPlay().then((ok) => {
+        if (!ok) needsUserGestureRef.current = true;
+      });
+    };
+
+    globalThis.addEventListener(OPEN_INVITATION_EVENT, playFromOpenGesture);
+    return () => {
+      globalThis.removeEventListener(OPEN_INVITATION_EVENT, playFromOpenGesture);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!canPlay) return;
+
+    const resumeOnGesture = () => {
+      if (!needsUserGestureRef.current || isPlaying) return;
+      tryPlay();
+    };
+
+    const opts = { passive: true };
+    globalThis.addEventListener('pointerdown', resumeOnGesture, opts);
+    globalThis.addEventListener('touchstart', resumeOnGesture, opts);
+    globalThis.addEventListener('wheel', resumeOnGesture, opts);
+    globalThis.addEventListener('keydown', resumeOnGesture);
+
+    return () => {
+      globalThis.removeEventListener('pointerdown', resumeOnGesture);
+      globalThis.removeEventListener('touchstart', resumeOnGesture);
+      globalThis.removeEventListener('wheel', resumeOnGesture);
+      globalThis.removeEventListener('keydown', resumeOnGesture);
+    };
+  }, [canPlay, isPlaying]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
     if (isPlaying) {
       audioRef.current.pause();
+      needsUserGestureRef.current = false;
+      setIsPlaying(false);
     } else {
-      audioRef.current.play().catch(() => {});
+      tryPlay();
     }
-    setIsPlaying(!isPlaying);
   };
 
   return (
     <>
       <audio ref={audioRef} loop preload="auto">
         <source
-          src="/music/background.mp3"
+          src="/music/I Think They Call This Love - Elliot James Reay (Saxophone Cover by Dori Wirawan) - dori wirawan.mp3"
           type="audio/mpeg"
         />
       </audio>

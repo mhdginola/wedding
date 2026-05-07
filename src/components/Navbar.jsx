@@ -4,7 +4,6 @@ const navLinks = [
   { href: '#countdown', label: 'Countdown' },
   { href: '#event', label: 'Acara' },
   { href: '#gallery', label: 'Galeri' },
-  { href: '#wishes', label: 'Wishes' },
 ];
 
 export default function Navbar() {

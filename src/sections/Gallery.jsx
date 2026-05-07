@@ -1,35 +1,34 @@
 import { dummyImg } from '../data/dummyImages';
 
-function Tile({ seed, className }) {
-  return (
-    <div className={`fade-in overflow-hidden rounded-2xl ${className}`}>
-      <img
-        src={dummyImg.gallery(seed)}
-        alt=""
-        loading="lazy"
-        className="size-full object-cover transition duration-500 hover:scale-105"
-      />
-    </div>
-  );
-}
-
 export default function Gallery() {
+  const items = [
+    dummyImg.gallery(1),
+    '/images/pre-wedding/NBT09637-0d216f65-b02c-4121-814d-6cd6bd49a1ca.png',
+    '/images/pre-wedding/NBT09304-e3d58c31-b55d-4734-ac24-60aab047c5eb.png',
+    '/images/pre-wedding/NBT09725-9dae22b9-802b-4b6c-9711-dfb36593fde1.png',
+    '/images/pre-wedding/NBT09687-5508ceaf-45a3-44d9-b99d-4699bda0bef0.png',
+    '/images/pre-wedding/NBT09583-216f6b65-fe26-451e-8954-9c3998dc94fd.png',
+    dummyImg.gallery(7),
+    '/images/pre-wedding/NBT09803-64fd6a6f-5d82-47b7-900a-c375dc60d98f.png',
+    '/images/pre-wedding/NBT09429-0ac2779d-e10c-4ae7-a7cb-1877640fe8d0.png',
+  ];
+
   return (
     <section id="gallery" className="bg-white px-3 py-10 pb-16 md:px-6">
-      <div className="mx-auto flex max-w-xl gap-2 md:max-w-3xl md:gap-3">
-        <div className="flex w-1/3 flex-col gap-2 md:gap-3">
-          <Tile seed={1} className="min-h-[200px] flex-1 md:min-h-[260px]" />
-        </div>
-        <div className="flex w-1/3 flex-col gap-2 md:gap-3">
-          <Tile seed={2} className="h-[120px] md:h-[160px]" />
-          <Tile seed={4} className="min-h-[100px] flex-1 md:min-h-[140px]" />
-          <Tile seed={6} className="h-[110px] md:h-[140px]" />
-        </div>
-        <div className="flex w-1/3 flex-col gap-2 md:gap-3">
-          <Tile seed={3} className="min-h-[200px] flex-1 md:min-h-[260px]" />
-          <Tile seed={5} className="h-[130px] md:h-[170px]" />
-          <Tile seed={7} className="min-h-[90px] flex-1 md:min-h-[120px]" />
-        </div>
+      <p className="heading-script mb-8 text-center text-4xl text-primary md:mb-10 md:text-5xl">
+        Journey of Love
+      </p>
+      <div className="mx-auto grid max-w-xl grid-cols-3 gap-2 md:gap-3">
+        {items.map((src, idx) => (
+          <div key={`${idx}-${src}`} className="fade-in aspect-square overflow-hidden rounded-2xl">
+            <img
+              src={src}
+              alt=""
+              loading="lazy"
+              className="size-full object-cover transition duration-500 hover:scale-105"
+            />
+          </div>
+        ))}
       </div>
     </section>
   );

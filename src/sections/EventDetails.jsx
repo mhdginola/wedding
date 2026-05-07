@@ -1,4 +1,6 @@
-import { AKAD, RESEPSI, MAP_URL, TURUT_MENGUNDANG, INVITATION_META } from '../data/wedding';
+import { AKAD, RESEPSI, MAP_URL } from '../data/wedding';
+import eventMotifBg from '../assets/event-motif-bg.png';
+import Countdown from './Countdown';
 
 function MapButton({ className = 'mt-8' }) {
   return (
@@ -16,59 +18,57 @@ function MapButton({ className = 'mt-8' }) {
         />
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
-      Share Lokasi
+      Lokasi
     </a>
   );
 }
 
 export default function EventDetails() {
   return (
-    <section id="event" className="border-y border-neutral-200 bg-white px-4 py-16 md:px-8">
-      <div className="mx-auto max-w-md space-y-10 md:max-w-lg">
-        <div className="fade-in border-4 border-double border-neutral-900 px-6 py-10 text-center md:px-8 md:py-12">
-          <p className="heading-script text-4xl text-primary md:text-[3rem]">{AKAD.title}</p>
-          <div className="mx-auto mt-10 h-px w-16 bg-neutral-300" />
+    <>
+      <section
+        id="event"
+        className="border-y border-neutral-200/90 bg-[#e7eaed] px-4 py-16 md:px-8"
+        style={{
+          backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(230, 234, 238, 0.45) 100%), url(${eventMotifBg})`,
+          backgroundSize: '100% 100%, cover',
+          backgroundRepeat: 'no-repeat, no-repeat',
+          backgroundPosition: 'center, left top',
+        }}
+      >
+        <div className="mx-auto max-w-md space-y-10 md:max-w-lg">
+          <div className="event-paper-card fade-in border-4 border-double border-neutral-900 px-6 py-10 text-center md:px-8 md:py-12">
+            <p className="heading-script text-4xl text-primary md:text-[3rem]">{AKAD.title}</p>
+            <div className="mx-auto mt-10 h-px w-16 bg-neutral-300" />
 
-          <p className="heading-serif mt-10 text-[11px] font-semibold uppercase leading-relaxed tracking-[0.1em] text-primary md:text-xs">
-            {AKAD.day}, {AKAD.dateLine}
-            <br />
-            {AKAD.time}
-          </p>
-          <p className="mt-6 font-sans text-sm font-medium text-neutral-900">{AKAD.venue}</p>
-          <MapButton />
-        </div>
+            <p className="heading-serif mt-10 text-[11px] font-semibold uppercase leading-relaxed tracking-[0.1em] text-primary md:text-xs">
+              {AKAD.day}, {AKAD.dateLine}
+              <br />
+              {AKAD.time}
+            </p>
+            <p className="mt-6 font-sans text-sm font-medium text-neutral-900">{AKAD.venue}</p>
+            <MapButton />
+          </div>
 
-        <div className="fade-in border-4 border-double border-neutral-900 px-6 py-10 text-center md:px-8 md:py-12">
-          <p className="heading-script text-4xl text-primary md:text-[3rem]">{RESEPSI.title}</p>
-          <div className="mx-auto mt-10 h-px w-16 bg-neutral-300" />
+          <div className="event-paper-card fade-in border-4 border-double border-neutral-900 px-6 py-10 text-center md:px-8 md:py-12">
+            <p className="heading-script text-4xl text-primary md:text-[3rem]">{RESEPSI.title}</p>
+            <div className="mx-auto mt-10 h-px w-16 bg-neutral-300" />
 
-          <p className="heading-serif mt-10 text-[11px] font-semibold uppercase leading-relaxed tracking-[0.1em] text-primary md:text-xs">
-            {RESEPSI.day}, {RESEPSI.dateLine}
-            <br />
-            {RESEPSI.time}
-          </p>
-          <p className="mt-6 font-sans text-sm font-medium text-neutral-900">{RESEPSI.venue}</p>
-          <p className="mx-auto mt-3 max-w-sm font-sans text-xs leading-relaxed text-text-light">
-            {RESEPSI.address}
-          </p>
-          <MapButton />
-        </div>
-
-        <div className="fade-in text-center">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-900">
-            Turut mengundang
-          </p>
-          <div className="mx-auto mt-5 max-w-sm space-y-2 font-sans text-sm leading-relaxed text-text">
-            {TURUT_MENGUNDANG.map((line) => (
-              <p key={line}>{line}</p>
-            ))}
+            <p className="heading-serif mt-10 text-[11px] font-semibold uppercase leading-relaxed tracking-[0.1em] text-primary md:text-xs">
+              {RESEPSI.day}, {RESEPSI.dateLine}
+              <br />
+              {RESEPSI.time}
+            </p>
+            <p className="mt-6 font-sans text-sm font-medium text-neutral-900">{RESEPSI.venue}</p>
+            <p className="mx-auto mt-3 max-w-sm font-sans text-xs leading-relaxed text-text-light">
+              {RESEPSI.address}
+            </p>
+            <MapButton />
           </div>
         </div>
+      </section>
 
-        <p className="fade-in text-center font-sans text-[10px] uppercase tracking-[0.12em] text-text-light">
-          Katalog undangan {INVITATION_META.catalog} · Jumlah {INVITATION_META.quantity}
-        </p>
-      </div>
-    </section>
+      <Countdown compact />
+    </>
   );
 }

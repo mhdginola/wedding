@@ -6,6 +6,7 @@ import { COUPLE_DISPLAY } from '../data/wedding';
 
 /** Jarak scroll (px) sebelum sampul tertutup & undangan terbuka. */
 const OPEN_SCROLL_THRESHOLD = 56;
+const OPEN_INVITATION_EVENT = 'wedding:open-invitation';
 
 export default function CoverPage({ onOpen }) {
   const guestName = useGuestName();
@@ -14,6 +15,7 @@ export default function CoverPage({ onOpen }) {
   const openOnce = useCallback(() => {
     if (openedRef.current) return;
     openedRef.current = true;
+    globalThis.dispatchEvent(new CustomEvent(OPEN_INVITATION_EVENT));
     onOpen();
   }, [onOpen]);
 

@@ -2,9 +2,10 @@ import { useId } from 'react';
 
 import { SEAL_CIRCULAR_PHRASE } from '../data/wedding';
 
-/** Radius path (match `d=` arc) untuk hitung keliling = panjang tulisan di path. */
-const PATH_RADIUS = 72;
-/** Keliling lingkaran ≈ panjang path `textPath` — dipakai agar teks tersebar satu putaran penuh. */
+const PATH_D = 'M 50,100 a 50,50 0 1 1 100,0 a 50,50 0 1 1 -100,0';
+
+/** Radius path (match `d=`) — lebih kecil = lingkaran teks lebih rapat. */
+const PATH_RADIUS = 50;
 const PATH_LENGTH = 2 * Math.PI * PATH_RADIUS;
 
 /** Segel bulat: satu kalimat mengelilingi lingkaran, berputar perlahan. */
@@ -14,8 +15,8 @@ export default function RotatingSeal({ className = '' }) {
 
   return (
     <div
-      className={`relative flex h-[11rem] w-[11rem] items-center justify-center md:h-[13rem] md:w-[13rem] ${className}`}
-      aria-label={SEAL_CIRCULAR_PHRASE}
+      className={`relative flex h-36 w-36 items-center justify-center md:h-40 md:w-40 ${className}`}
+      aria-label={SEAL_CIRCULAR_PHRASE.trim()}
       role="img"
     >
       <div className="rotating-seal-spin pointer-events-none absolute inset-0">
@@ -25,21 +26,17 @@ export default function RotatingSeal({ className = '' }) {
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <path
-              id={pathId}
-              fill="none"
-              d="M 28,100 a 72,72 0 1 1 144,0 a 72,72 0 1 1 -144,0"
-            />
+            <path id={pathId} d={PATH_D} fill="none" />
           </defs>
           <text
-            className="fill-neutral-500"
+            className="fill-neutral-800"
             textLength={PATH_LENGTH}
             lengthAdjust="spacing"
             style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: '10px',
-              fontWeight: 600,
-              letterSpacing: '0.02em',
+              fontSize: '13px',
+              fontWeight: 700,
+              letterSpacing: '0.06em',
               textTransform: 'uppercase',
             }}
           >
@@ -49,11 +46,6 @@ export default function RotatingSeal({ className = '' }) {
           </text>
         </svg>
       </div>
-
-      <span
-        className="pointer-events-none absolute inset-[12%] rounded-full border border-neutral-300 md:inset-[11.5%]"
-        aria-hidden
-      />
     </div>
   );
 }

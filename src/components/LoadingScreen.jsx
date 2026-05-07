@@ -6,7 +6,7 @@ export default function LoadingScreen() {
              style={{ borderTopColor: 'var(--color-primary)' }} />
       </div>
       <p className="heading-script text-3xl text-primary animate-pulse-soft md:text-4xl">
-        Ginola & Ade Risma Lestari
+        Ginola & Ade Risma
       </p>
       <p className="mt-3 text-xs tracking-[0.3em] uppercase text-text-light">
         Memuat...

@@ -1,17 +1,7 @@
 import { dummyImg } from '../data/dummyImages';
 
 const verses = [
-  '“Love is patient, love is kind.',
-  'It does not envy,',
-  'it does not boast, it is not proud.',
-  'It does not dishonor others,',
-  'it is not self-seeking,',
-  'it is not easily angered,',
-  'it keeps no record of wrongs.',
-  'Love does not delight in evil',
-  'but rejoices with the truth.',
-  'It always protects, always trusts,',
-  'always hopes, always perseveres.”',
+  '"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."',
 ];
 
 export default function QuoteBible() {
@@ -33,7 +23,7 @@ export default function QuoteBible() {
             </p>
           ))}
           <p className="mt-8 font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-900 md:text-[11px]">
-            1 Corinthians 13:4–7 NIV
+            QS. Ar-Rum: 21
           </p>
         </div>
       </div>
