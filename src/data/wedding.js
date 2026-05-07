@@ -47,3 +47,6 @@ export const INVITATION_META = Object.freeze({
   catalog: 'BUP 329',
   quantity: 450,
 });
+
+/** Satu kalimat untuk segel berputar di Hero; mengikuti `COUPLE_DISPLAY`. */
+export const SEAL_CIRCULAR_PHRASE = `THE WEDDING OF ${COUPLE_DISPLAY}`;

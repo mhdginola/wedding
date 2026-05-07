@@ -132,3 +132,16 @@
 .delay-500 { animation-delay: 0.5s; }
 .delay-700 { animation-delay: 0.7s; }
 .delay-1000 { animation-delay: 1s; }
+
+@keyframes spin-seal {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotating-seal-spin {
+  animation: spin-seal 32s linear infinite;
+}

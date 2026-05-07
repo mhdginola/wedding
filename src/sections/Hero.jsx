@@ -1,3 +1,4 @@
+import RotatingSeal from '../components/RotatingSeal';
 import { dummyImg } from '../data/dummyImages';
 import { COUPLE_DISPLAY } from '../data/wedding';
 
@@ -26,14 +27,7 @@ export default function Hero() {
       </div>
 
       <div className="flex justify-center bg-white px-6 py-14">
-        <div
-          className="flex h-36 w-36 items-center justify-center rounded-full border border-neutral-300 md:h-40 md:w-40"
-          aria-hidden
-        >
-          <p className="max-w-[11rem] text-center font-sans text-[8px] font-medium uppercase leading-snug tracking-[0.12em] text-neutral-500 md:max-w-[12rem] md:text-[9px]">
-            The wedding of Ginola & Ade Risma Lestari
-          </p>
-        </div>
+        <RotatingSeal />
       </div>
     </section>
   );
