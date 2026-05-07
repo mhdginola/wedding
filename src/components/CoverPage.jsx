@@ -7,6 +7,8 @@ import { COUPLE_DISPLAY } from '../data/wedding';
 /** Jarak scroll (px) sebelum sampul tertutup & undangan terbuka. */
 const OPEN_SCROLL_THRESHOLD = 56;
 const OPEN_INVITATION_EVENT = 'wedding:open-invitation';
+const COVER_SCROLL_GESTURE_EVENT = 'wedding:cover-scroll-gesture';
+const DIRECT_PLAY_FN = '__weddingDirectPlayFromGesture';
 
 export default function CoverPage({ onOpen }) {
   const guestName = useGuestName();
@@ -22,6 +24,8 @@ export default function CoverPage({ onOpen }) {
 
   const handleScroll = useCallback(
     (e) => {
+      globalThis[DIRECT_PLAY_FN]?.();
+      globalThis.dispatchEvent(new CustomEvent(COVER_SCROLL_GESTURE_EVENT));
       const top = e.currentTarget.scrollTop;
       if (top >= OPEN_SCROLL_THRESHOLD) openOnce();
     },
@@ -31,6 +35,8 @@ export default function CoverPage({ onOpen }) {
   /** Trackpad yang tidak menggerakkan scroll position—tambah pakai rod wheel. */
   const handleWheel = useCallback(
     (e) => {
+      globalThis[DIRECT_PLAY_FN]?.();
+      globalThis.dispatchEvent(new CustomEvent(COVER_SCROLL_GESTURE_EVENT));
       if (openedRef.current) return;
       if (e.deltaY > 18) openOnce();
     },
@@ -38,12 +44,21 @@ export default function CoverPage({ onOpen }) {
   );
 
   const handleTouchStart = useCallback((e) => {
+    globalThis[DIRECT_PLAY_FN]?.();
+    globalThis.dispatchEvent(new CustomEvent(COVER_SCROLL_GESTURE_EVENT));
     const y = e.touches?.[0]?.clientY;
     touchStartYRef.current = typeof y === 'number' ? y : null;
   }, []);
 
+  const handlePointerDown = useCallback(() => {
+    globalThis[DIRECT_PLAY_FN]?.();
+    globalThis.dispatchEvent(new CustomEvent(COVER_SCROLL_GESTURE_EVENT));
+  }, []);
+
   const handleTouchMove = useCallback(
     (e) => {
+      globalThis[DIRECT_PLAY_FN]?.();
+      globalThis.dispatchEvent(new CustomEvent(COVER_SCROLL_GESTURE_EVENT));
       if (openedRef.current || touchStartYRef.current == null) return;
       const currentY = e.touches?.[0]?.clientY;
       if (typeof currentY !== 'number') return;
@@ -62,6 +77,7 @@ export default function CoverPage({ onOpen }) {
       style={{ WebkitOverflowScrolling: 'touch' }}
       onScroll={handleScroll}
       onWheel={handleWheel}
+      onPointerDown={handlePointerDown}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
     >

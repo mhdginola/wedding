@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 
 const OPEN_INVITATION_EVENT = 'wedding:open-invitation';
+const COVER_SCROLL_GESTURE_EVENT = 'wedding:cover-scroll-gesture';
+const DIRECT_PLAY_FN = '__weddingDirectPlayFromGesture';
 
 export default function MusicPlayer({ canPlay }) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -40,6 +42,33 @@ export default function MusicPlayer({ canPlay }) {
       globalThis.removeEventListener(OPEN_INVITATION_EVENT, playFromOpenGesture);
     };
   }, []);
+
+  useEffect(() => {
+    const playFromCoverScroll = () => {
+      if (pausedByUserRef.current || isPlaying) return;
+      tryPlay().then((ok) => {
+        if (!ok) needsUserGestureRef.current = true;
+      });
+    };
+
+    globalThis.addEventListener(COVER_SCROLL_GESTURE_EVENT, playFromCoverScroll);
+    return () => {
+      globalThis.removeEventListener(COVER_SCROLL_GESTURE_EVENT, playFromCoverScroll);
+    };
+  }, [isPlaying]);
+
+  useEffect(() => {
+    globalThis[DIRECT_PLAY_FN] = () => {
+      if (pausedByUserRef.current || isPlaying) return;
+      tryPlay().then((ok) => {
+        if (!ok) needsUserGestureRef.current = true;
+      });
+    };
+
+    return () => {
+      delete globalThis[DIRECT_PLAY_FN];
+    };
+  }, [isPlaying]);
 
   useEffect(() => {
     if (!canPlay) return;
