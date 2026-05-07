@@ -6,6 +6,7 @@ export default function MusicPlayer({ canPlay }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
   const needsUserGestureRef = useRef(false);
+  const pausedByUserRef = useRef(false);
 
   const tryPlay = async () => {
     if (!audioRef.current) return false;
@@ -20,7 +21,7 @@ export default function MusicPlayer({ canPlay }) {
   };
 
   useEffect(() => {
-    if (!canPlay || isPlaying) return;
+    if (!canPlay || isPlaying || pausedByUserRef.current) return;
     tryPlay().then((ok) => {
       if (!ok) needsUserGestureRef.current = true;
     });
@@ -28,6 +29,7 @@ export default function MusicPlayer({ canPlay }) {
 
   useEffect(() => {
     const playFromOpenGesture = () => {
+      if (pausedByUserRef.current) return;
       tryPlay().then((ok) => {
         if (!ok) needsUserGestureRef.current = true;
       });
@@ -43,7 +45,7 @@ export default function MusicPlayer({ canPlay }) {
     if (!canPlay) return;
 
     const resumeOnGesture = () => {
-      if (!needsUserGestureRef.current || isPlaying) return;
+      if (!needsUserGestureRef.current || isPlaying || pausedByUserRef.current) return;
       tryPlay();
     };
 
@@ -65,9 +67,11 @@ export default function MusicPlayer({ canPlay }) {
     if (!audioRef.current) return;
     if (isPlaying) {
       audioRef.current.pause();
+      pausedByUserRef.current = true;
       needsUserGestureRef.current = false;
       setIsPlaying(false);
     } else {
+      pausedByUserRef.current = false;
       tryPlay();
     }
   };

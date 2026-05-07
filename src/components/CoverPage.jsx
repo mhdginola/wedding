@@ -11,6 +11,7 @@ const OPEN_INVITATION_EVENT = 'wedding:open-invitation';
 export default function CoverPage({ onOpen }) {
   const guestName = useGuestName();
   const openedRef = useRef(false);
+  const touchStartYRef = useRef(null);
 
   const openOnce = useCallback(() => {
     if (openedRef.current) return;
@@ -36,12 +37,33 @@ export default function CoverPage({ onOpen }) {
     [openOnce]
   );
 
+  const handleTouchStart = useCallback((e) => {
+    const y = e.touches?.[0]?.clientY;
+    touchStartYRef.current = typeof y === 'number' ? y : null;
+  }, []);
+
+  const handleTouchMove = useCallback(
+    (e) => {
+      if (openedRef.current || touchStartYRef.current == null) return;
+      const currentY = e.touches?.[0]?.clientY;
+      if (typeof currentY !== 'number') return;
+
+      // Swipe up intent on mobile: trigger open within active touch gesture.
+      if (touchStartYRef.current - currentY > 22) {
+        openOnce();
+      }
+    },
+    [openOnce]
+  );
+
   return (
     <div
       className="fixed inset-0 z-50 overflow-y-auto overscroll-y-contain scroll-smooth"
       style={{ WebkitOverflowScrolling: 'touch' }}
       onScroll={handleScroll}
       onWheel={handleWheel}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
     >
       <div className="relative min-h-[118vh]">
         <div
