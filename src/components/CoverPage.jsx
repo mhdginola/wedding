@@ -4,16 +4,11 @@ import { useGuestName } from '../hooks/useGuestName';
 import { dummyImg } from '../data/dummyImages';
 import { COUPLE_DISPLAY } from '../data/wedding';
 
-/** Jarak scroll (px) sebelum sampul tertutup & undangan terbuka. */
-const OPEN_SCROLL_THRESHOLD = 56;
 const OPEN_INVITATION_EVENT = 'wedding:open-invitation';
-const COVER_SCROLL_GESTURE_EVENT = 'wedding:cover-scroll-gesture';
-const DIRECT_PLAY_FN = '__weddingDirectPlayFromGesture';
 
 export default function CoverPage({ onOpen }) {
   const guestName = useGuestName();
   const openedRef = useRef(false);
-  const touchStartYRef = useRef(null);
 
   const openOnce = useCallback(() => {
     if (openedRef.current) return;
@@ -22,64 +17,9 @@ export default function CoverPage({ onOpen }) {
     onOpen();
   }, [onOpen]);
 
-  const handleScroll = useCallback(
-    (e) => {
-      globalThis[DIRECT_PLAY_FN]?.();
-      globalThis.dispatchEvent(new CustomEvent(COVER_SCROLL_GESTURE_EVENT));
-      const top = e.currentTarget.scrollTop;
-      if (top >= OPEN_SCROLL_THRESHOLD) openOnce();
-    },
-    [openOnce]
-  );
-
-  /** Trackpad yang tidak menggerakkan scroll position—tambah pakai rod wheel. */
-  const handleWheel = useCallback(
-    (e) => {
-      globalThis[DIRECT_PLAY_FN]?.();
-      globalThis.dispatchEvent(new CustomEvent(COVER_SCROLL_GESTURE_EVENT));
-      if (openedRef.current) return;
-      if (e.deltaY > 18) openOnce();
-    },
-    [openOnce]
-  );
-
-  const handleTouchStart = useCallback((e) => {
-    globalThis[DIRECT_PLAY_FN]?.();
-    globalThis.dispatchEvent(new CustomEvent(COVER_SCROLL_GESTURE_EVENT));
-    const y = e.touches?.[0]?.clientY;
-    touchStartYRef.current = typeof y === 'number' ? y : null;
-  }, []);
-
-  const handlePointerDown = useCallback(() => {
-    globalThis[DIRECT_PLAY_FN]?.();
-    globalThis.dispatchEvent(new CustomEvent(COVER_SCROLL_GESTURE_EVENT));
-  }, []);
-
-  const handleTouchMove = useCallback(
-    (e) => {
-      globalThis[DIRECT_PLAY_FN]?.();
-      globalThis.dispatchEvent(new CustomEvent(COVER_SCROLL_GESTURE_EVENT));
-      if (openedRef.current || touchStartYRef.current == null) return;
-      const currentY = e.touches?.[0]?.clientY;
-      if (typeof currentY !== 'number') return;
-
-      // Swipe up intent on mobile: trigger open within active touch gesture.
-      if (touchStartYRef.current - currentY > 22) {
-        openOnce();
-      }
-    },
-    [openOnce]
-  );
-
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto overscroll-y-contain scroll-smooth"
-      style={{ WebkitOverflowScrolling: 'touch' }}
-      onScroll={handleScroll}
-      onWheel={handleWheel}
-      onPointerDown={handlePointerDown}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
+      className="fixed inset-0 z-50 overflow-hidden"
     >
       <div className="relative min-h-[118vh]">
         <div
@@ -112,7 +52,7 @@ export default function CoverPage({ onOpen }) {
               OPEN INVITATION
             </button>
             <p className="font-sans text-[10px] font-light tracking-[0.2em] text-white/65 md:text-[11px]">
-              atau gulir ke bawah
+              klik tombol untuk membuka
             </p>
           </div>
         </div>

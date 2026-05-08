@@ -23,6 +23,13 @@ export default function MusicPlayer({ canPlay }) {
   };
 
   useEffect(() => {
+    if (pausedByUserRef.current) return;
+    tryPlay().then((ok) => {
+      if (!ok) needsUserGestureRef.current = true;
+    });
+  }, []);
+
+  useEffect(() => {
     if (!canPlay || isPlaying || pausedByUserRef.current) return;
     tryPlay().then((ok) => {
       if (!ok) needsUserGestureRef.current = true;
